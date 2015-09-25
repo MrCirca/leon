@@ -1,0 +1,68 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# How strict should if_up be when testing an interface for being up?
+# The value is one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, having link
+# and an assigned IP address.
+if_up_strictness address
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+# JSON for i3bar
+
+[
+ { "full_text" : " KERNEL:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${kernel} " , "color" : "\#888888" },
+
+ { "full_text" : " NETWORK:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${downspeedf enp1s0}K↓" , "color" : "\#00ff00" , "separator" : false },
+ { "full_text" : "${upspeedf enp1s0}K↑ " , "color" : "\#ff0000" },
+
+ { "full_text" : " CPU Usage / Load:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${if_match ${cpu}<10} ${cpu}%${else}${cpu}%${endif} / ${loadavg 1} " , "color" : "\#ff00ff" },
+ 
+ { "full_text" : " RAM Free:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${memeasyfree} " , "color" : ${if_match ${memperc}<90}"\#00ffff"${else}"\#ff0000"${endif} },
+
+ { "full_text" : " DISK I/O:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${diskio} " , "color" : "\#ffff00" },
+
+ { "full_text" : " VOLUME:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${execi 2 amixer get Master | ~/.i3/volume-levels.awk} " , "color" : "\#f0dc64" },
+
+ { "full_text" : "New Mails:" , "color" : "\#AFA6FF" , "separator" : false },
+ { "full_text" : "${exec /home/mrcirca/new_mails.sh} " , "color" : "\#FF8A90" },
+
+ { "full_text" : " LANG:" , "color" : "\#ffffff" , "separator" : false },
+ { "full_text" : "${exec ~/.i3/lang.sh} " , "color" : "\#888888" },
+
+ { "full_text" : " ${time %d/%m/%Y - %H:%M:%S}" , "color" : "\#aaf096" }
+],
+
+
